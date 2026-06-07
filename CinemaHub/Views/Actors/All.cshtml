@@ -1,0 +1,57 @@
+﻿@model List<Actor>
+
+@{
+    ViewData["Title"] = "All Actors";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Actors List</h2>
+    @if (User.IsInRole("Administrator") || User.IsInRole("Moderator"))
+    {
+        <a asp-action="Add" class="btn btn-primary"><i class="bi bi-plus-lg"></i> Add New Actor</a>
+    }
+</div>
+
+<table class="table table-hover shadow-sm">
+    <thead class="table-dark">
+        <tr>
+            <th>Name</th>
+            <th>Bio</th>
+            <th class="text-end">Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var actor in Model)
+        {
+            <tr>
+                <td class="fw-bold">@actor.Name</td>
+                <td>
+                    @if (!string.IsNullOrEmpty(actor.Bio) && actor.Bio.Length > 50)
+                    {
+                        @($"{actor.Bio.Substring(0, 50)}...")
+                    }
+                    else
+                    {
+                        @actor.Bio
+                    }
+                </td>
+                <td class="text-end">
+                    @if (User.IsInRole("Administrator") || User.IsInRole("Moderator"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@actor.Id" class="btn btn-sm btn-outline-warning me-2">Edit</a>
+                    }
+
+                    <a asp-action="Details" asp-route-id="@actor.Id" class="btn btn-sm btn-outline-info me-2">Details</a>
+
+                    @if (User.IsInRole("Administrator") || User.IsInRole("Moderator"))
+                    {
+                        <form asp-action="Delete" asp-route-id="@actor.Id" method="post" class="d-inline"
+                        onsubmit="return confirm('Are you sure you want to delete @actor.Name?');">
+                            <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                        </form>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

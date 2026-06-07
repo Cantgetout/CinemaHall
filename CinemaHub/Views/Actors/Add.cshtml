@@ -1,0 +1,32 @@
+﻿@model CinemaHub.Data.Models.Actor 
+
+@{
+    ViewData["Title"] = "Add Actor";
+}
+
+<h2 class="text-center">Add New Actor</h2>
+<hr />
+
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <form method="post">
+            <div class="mb-3">
+                <label asp-for="Name" class="form-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="mb-3">
+                <label asp-for="Bio" class="form-label"></label>
+                <textarea asp-for="Bio" class="form-control" rows="3"></textarea>
+            </div>
+            @if (User.IsInRole("Administrator") || User.IsInRole("Moderator"))
+            {
+                <button type="submit" class="btn btn-primary w-100">Create Actor</button>
+            }
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+ }

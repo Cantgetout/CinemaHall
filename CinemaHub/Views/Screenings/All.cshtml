@@ -1,0 +1,47 @@
+﻿@model IEnumerable<CinemaHub.Data.Models.ViewModels.ScreeningViewModel>
+@{
+    ViewData["Title"] = "Program Schedule";
+}
+
+<h2 class="text-center mb-4">Movie Program</h2>
+
+@if (User.IsInRole("Administrator") || User.IsInRole("Moderator"))
+{
+    <div class="text-end mb-3">
+        <a asp-action="Add" class="btn btn-primary"><i class="bi bi-calendar-plus"></i> Add Screening</a>
+    </div>
+}
+
+<table class="table table-bordered table-striped shadow-sm bg-white">
+    <thead class="table-dark">
+        <tr>
+            <th>Date & Time</th>
+            <th>Movie</th>
+            <th>Hall</th>
+            @if (User.IsInRole("Administrator") || User.IsInRole("Moderator"))
+            {
+                <th class="text-center">Actions</th>
+            }
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td class="fw-bold text-primary">@item.StartDateTime</td>
+                <td>@item.MovieTitle</td>
+                <td>@item.HallName</td>
+                @if (User.IsInRole("Administrator") || User.IsInRole("Moderator"))
+                {
+                    <td class="text-center">
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-sm btn-outline-warning">Edit</a>
+                        <form asp-action="Delete" asp-route-id="@item.Id" method="post" class="d-inline"
+                        onsubmit="return confirm('Delete this screening?');">
+                            <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+                        </form>
+                    </td>
+                }
+            </tr>
+        }
+    </tbody>
+</table>

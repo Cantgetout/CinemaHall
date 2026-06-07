@@ -1,0 +1,175 @@
+﻿/* Dark Cinema Theme */
+:root {
+    --cinema-black: #141414;
+    --cinema-dark-gray: #1f1f1f;
+    --cinema-red: #e50914;
+    --cinema-text: #ffffff;
+    --cinema-light-gray: #b3b3b3;
+}
+
+body {
+    background-color: var(--cinema-black);
+    color: var(--cinema-text);
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Navbar Styling */
+.navbar {
+    background-color: rgba(0, 0, 0, 0.9) !important;
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid #333;
+}
+
+.navbar-brand {
+    color: var(--cinema-red) !important;
+    font-weight: bold;
+    font-size: 1.5rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.nav-link {
+    color: var(--cinema-light-gray) !important;
+    transition: color 0.3s;
+}
+
+    .nav-link:hover, .nav-link.active {
+        color: var(--cinema-text) !important;
+    }
+
+/* --- DARK CARD STYLES (FIX) --- */
+
+/* Цялата карта да е тъмна */
+.card {
+    background-color: var(--cinema-dark-gray) !important;
+    color: var(--cinema-text) !important; /* Прави целия текст бял */
+    border: 1px solid #333;
+}
+
+/* Оправяме "белия" футър на картата (където са бутоните) */
+.card-footer {
+    background-color: rgba(0, 0, 0, 0.2) !important; /* Леко по-тъмно */
+    border-top: 1px solid #333 !important;
+}
+
+/* Оправяме невидимия текст (който беше черен) */
+.card-text, .card-title, h5, h6, p {
+    color: #e0e0e0 !important; /* Светло сиво, почти бяло */
+}
+
+/* Оправяме специфично text-muted класа, който Bootstrap прави тъмен */
+.card .text-muted {
+    color: #a0a0a0 !important; /* По-светло сиво за второстепенен текст */
+}
+
+/* --- PAGINATION STYLES (DARK THEME) --- */
+.page-link {
+    background-color: var(--cinema-dark-gray);
+    border-color: #444;
+    color: white;
+}
+
+    .page-link:hover {
+        background-color: var(--cinema-red);
+        border-color: var(--cinema-red);
+        color: white;
+    }
+
+.page-item.active .page-link {
+    background-color: var(--cinema-red);
+    border-color: var(--cinema-red);
+}
+
+.page-item.disabled .page-link {
+    background-color: #111;
+    border-color: #333;
+    color: #555;
+}
+
+.footer {
+    position: relative !important; /* Гарантира, че е част от потока, а не левитира */
+    bottom: unset !important; /* Премахва всякакво фиксиране за дъното */
+    margin-top: auto !important; /* Избутва го най-долу, ако страницата е празна */
+
+    width: 100%;
+    flex-shrink: 0; /* ВАЖНО: Не позволява на футъра да се свива */
+
+    background-color: black;
+    color: #b3b3b3;
+    border-top: 1px solid #333;
+    line-height: 60px;
+    z-index: 100; /* За всеки случай, да е над всичко */
+}
+
+a {
+    color: var(--cinema-red);
+    text-decoration: none;
+}
+
+    a:hover {
+        color: #ff4f58;
+    }
+
+/* Buttons */
+.btn-primary {
+    background-color: var(--cinema-red);
+    border-color: var(--cinema-red);
+}
+
+.btn-primary:hover {
+    background-color: #b20710;
+    border-color: #b20710;
+}
+
+/* --- DARK THEME FOR FORMS (REGISTER / LOGIN) --- GEMINI*/
+
+/* Force labels to be white and visible */
+.form-label {
+    color: var(--cinema-text) !important;
+    font-weight: 500;
+    display: block !important;
+    margin-bottom: 0.5rem;
+    background-color: var(--cinema-black)
+}
+
+/* Make the input boxes dark to match the theme */
+.form-control {
+    background-color: var(--cinema-dark-gray) !important;
+    color: var(--cinema-text) !important;
+    border: 1px solid #444 !important;
+}
+
+/* Change the color of the input box when you click on it */
+.form-control:focus {
+    background-color: #2a2a2a !important;
+    border-color: var(--cinema-red) !important;
+    color: white !important;
+    /* Adds a nice red glow instead of the default blue Bootstrap glow */
+    box-shadow: 0 0 0 0.25rem rgba(229, 9, 20, 0.25) !important;
+}
+
+.form-floating .form-control::placeholder {
+    color: transparent !important;
+}
+
+/* Show placeholder ONLY when the input is clicked (focused) */
+.form-floating .form-control:focus::placeholder {
+    color: #888 !important;
+}
+
+/* Make the floating label readable on the dark background */
+.form-floating > label {
+    color: #888; /* Dim text when resting inside the field */
+}
+
+/* Brighten the label when it floats up */
+.form-floating .form-control:focus ~ label,
+.form-floating .form-control:not(:placeholder-shown) ~ label {
+    color: var(--cinema-text) !important;
+}
+
+/* Fix the background of the label when it floats up so it doesn't look cut off */
+.form-floating > .form-control:focus ~ label::after,
+.form-floating > .form-control:not(:placeholder-shown) ~ label::after {
+    background-color: var(--cinema-dark-gray) !important;
+}

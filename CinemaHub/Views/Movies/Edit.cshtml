@@ -1,0 +1,86 @@
+﻿@using CinemaHub.Models.ViewModels
+@model EditMovieViewModel
+
+@{
+    ViewData["Title"] = "Edit Movie";
+}
+
+<h2 class="text-center">Edit Movie</h2>
+<hr />
+
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <form method="post">
+            <input type="hidden" asp-for="Id" />
+
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+            <div class="mb-3">
+                <label asp-for="Title" class="form-label"></label>
+                <input asp-for="Title" class="form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Description" class="form-label"></label>
+                <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                <span asp-validation-for="Description" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="ImageUrl" class="form-label">Poster URL</label>
+                <input asp-for="ImageUrl" class="form-control" />
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Year" class="form-label"></label>
+                <input asp-for="Year" class="form-control" />
+                <span asp-validation-for="Year" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="GenreId" class="form-label">Genre</label>
+                <select asp-for="GenreId" class="form-control">
+                    @foreach (var genre in Model.Genres)
+                    {
+                        // Автоматично избира правилния жанр
+                        <option value="@genre.Id">@genre.Name</option>
+                    }
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label fw-bold">Select Actors</label>
+                <div class="card p-3" style="max-height: 200px; overflow-y: auto;">
+                    @foreach (var actor in Model.AllActors)
+                    {
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox"
+                            name="SelectedActorIds"
+                            value="@actor.Id"
+                            id="actor_@actor.Id"
+                            @(Model.SelectedActorIds.Contains(actor.Id) ? "checked" : "")>
+                            <label class="form-check-label" for="actor_@actor.Id">
+                                @actor.Name
+                            </label>
+                        </div>
+                    }
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <button type="submit" class="btn btn-warning w-100">Save Changes</button>
+            </div>
+            @if (User.IsInRole("Administrator") || User.IsInRole("Moderator"))
+            {
+                <div class="text-center">
+                    <a asp-action="All" class="btn btn-outline-secondary">Cancel</a>
+                </div>
+            }
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+<partial name="_ValidationScriptsPartial" />
+ }

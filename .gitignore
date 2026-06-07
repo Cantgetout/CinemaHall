@@ -1,0 +1,17 @@
+[Bb]in/
+[Oo]bj/
+
+.vs/
+*.user
+*.suo
+*.userosscache
+*.sln.docstates
+
+**/appsettings.Development.json
+**/appsettings.Local.json
+
+ToDos.txt
+
+.cache/
+zig.conf.json
+zigzag-reports/

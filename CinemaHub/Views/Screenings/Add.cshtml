@@ -1,0 +1,40 @@
+﻿@model CinemaHub.Data.Models.ViewModels.ScreeningFormModel
+@{
+    ViewData["Title"] = "Add Screening";
+}
+
+<h2 class="text-center">Add Screening</h2>
+<div class="row">
+    <div class="col-md-6 offset-md-3">
+        <form method="post">
+            <div class="mb-3">
+                <label asp-for="MovieId" class="form-label">Movie</label>
+                <select asp-for="MovieId" class="form-select">
+                    @foreach (var m in Model.Movies)
+                    {
+                        <option value="@m.Id">@m.Title</option>
+                    }
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="CinemaHallId" class="form-label">Cinema Hall</label>
+                <select asp-for="CinemaHallId" class="form-select">
+                    @foreach (var h in Model.Halls)
+                    {
+                        <option value="@h.Id">@h.Name</option>
+                    }
+                </select>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="StartDateTime" class="form-label">Date & Time</label>
+                <input asp-for="StartDateTime" class="form-control" type="datetime-local" />
+            </div>
+            @if (User.IsInRole("Administrator") || User.IsInRole("Moderator"))
+            {
+                <button type="submit" class="btn btn-primary w-100">Add to Schedule</button>
+            }
+        </form>
+    </div>
+</div>

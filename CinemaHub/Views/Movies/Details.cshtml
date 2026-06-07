@@ -1,0 +1,54 @@
+﻿@using CinemaHub.Data.Models.ViewModels
+@model MovieDetailsViewModel
+
+@{
+    ViewData["Title"] = Model.Title;
+}
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-md-4">
+            <img src="@Model.ImageUrl" class="img-fluid rounded shadow-lg" alt="@Model.Title"
+            onerror="this.src='https://via.placeholder.com/400x600?text=No+Poster';" />
+        </div>
+
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h1 class="card-title display-5">@Model.Title <span class="text-muted fs-4">(@Model.Year)</span></h1>
+                    <span class="badge bg-primary mb-3">@Model.Genre</span>
+
+                    <p class="card-text lead">@Model.Description</p>
+
+                    <hr />
+
+                    <h4>Cast</h4>
+                    @if (Model.Actors.Any())
+                    {
+                        <div class="list-group list-group-horizontal flex-wrap">
+                            @foreach (var actor in Model.Actors)
+                            {
+                                <a asp-controller="Actors" asp-action="Details" asp-route-id="@actor.Id"
+                                class="list-group-item list-group-item-action border-0 bg-light me-2 mb-2 rounded">
+                                    <i class="bi bi-person-circle"></i> @actor.Name
+                                </a>
+                            }
+                        </div>
+                    }
+                    else
+                    {
+                        <p class="text-muted">No cast information.</p>
+                    }
+
+                    <div class="mt-4">
+                        @if (User.IsInRole("Administrator") || User.IsInRole("Moderator"))
+                        {
+                            <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning">Edit</a>
+                        }
+                        <a asp-action="All" class="btn btn-outline-secondary">Back to List</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
